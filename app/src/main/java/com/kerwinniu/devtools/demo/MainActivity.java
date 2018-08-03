@@ -2,7 +2,6 @@ package com.kerwinniu.devtools.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,17 +22,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnReadProp) {
-            loadParam();
+            doSomething();
         }
     }
 
-    private void loadParam() {
-        String haha = SystemProperties.read("haha");
-
-        if (TextUtils.isEmpty(haha)) {
-            haha = "Not set!";
+    private void doSomething() {
+        String condition = SystemProperties.read("haha");
+        if ("success".equalsIgnoreCase(condition)) {
+            onSuccess();
+        } else {
+            onFailed();
         }
-        showResult(haha);
+        showResult(condition);
+    }
+
+    private void onSuccess() {
+        showResult("success!!");
+    }
+
+    private void onFailed() {
+        showResult("failed!!");
     }
 
     private void showResult(String val) {
